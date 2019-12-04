@@ -1,5 +1,7 @@
 package fun.imcoder.cloud.base;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,6 +17,13 @@ public class BaseController<M extends BaseModel,S extends IService> {
     @GetMapping("/all")
     public List<M> findAll(){
         return service.list();
+    }
+
+    @GetMapping("/page")
+    public IPage<M> page(){
+        Page<M> page = new Page<>(1,2);
+        IPage rtn = service.page(page);
+        return rtn;
     }
 
     @PostMapping("/save")
